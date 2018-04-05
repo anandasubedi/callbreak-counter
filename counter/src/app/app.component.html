@@ -1,5 +1,22 @@
-<nav class="navbar fixed-top navbar-dark bg-primary">
+<nav class="navbar fixed-top navbar-dark bg-primary navbar-expand-lg">
   <div class="container">
-    <span class="navbar-brand mb-0 h1">Navbar</span>
+    <a class="nav-link" routerLink="/"><span class="navbar-brand mb-0 h1">Call Break</span></a>
+    <ul class="nav navbar-nav ml-auto">
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/login">Login</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" routerLink="/register">Register</a>
+        </li>
+    </ul>
   </div>
 </nav>
+<div class="container app-container">
+  <router-outlet></router-outlet>
+</div>
+<footer class="footer">
+  <div class="container">
+    <span class="text-muted">copyright 2018</span>
+  </div>
+</footer>
+
