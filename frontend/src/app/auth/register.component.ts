@@ -20,6 +20,8 @@ export class RegisterComponent implements OnInit {
 
     registerForm: FormGroup;
     user: User;
+    registerErorMessage: String;
+
     constructor(private registerService: RegisterService, private router: Router) {
 
     }
@@ -29,8 +31,13 @@ export class RegisterComponent implements OnInit {
             this.user = Object.assign({}, this.registerForm.value);
             this.registerService.register(this.user)
             .subscribe(user => {
+                this.registerService.setRegisterSuccessMessage('Successfully Registered');
                 this.goToLogin();
-              });
+            }, error => {
+                console.log(error);
+                this.registerErorMessage = error.error;
+            }
+        );
 
         } else {
             // tslint:disable-next-line:forin

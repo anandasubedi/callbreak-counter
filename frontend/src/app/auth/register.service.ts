@@ -1,3 +1,4 @@
+import { FormControl } from '@angular/forms';
 import { Globals } from './../globals';
 import { User } from './User';
 import { Injectable } from '@angular/core';
@@ -12,8 +13,9 @@ const httpOptions = {
 @Injectable()
 export class RegisterService {
 
-  registerUrl = Globals.apiEndPointPrefix + 'register';
-  loginUrl = Globals.apiEndPointPrefix + 'login';
+  registerUrl = Globals.apiEndPointPrefix + 'auth/register';
+  loginUrl = Globals.apiEndPointPrefix + 'auth/login';
+  registerSuccessMessage = null;
   constructor(private http: HttpClient) { }
 
   register(user: User): Observable<User> {
@@ -25,8 +27,7 @@ export class RegisterService {
       password: user.password
     }, httpOptions)
       .pipe(
-        // tslint:disable-next-line:no-shadowed-variable
-        tap((user: User) => console.log('User registered'))
+        tap((registerdUser: User) => console.log('User registered'))
       );
   }
 
@@ -34,8 +35,11 @@ export class RegisterService {
     console.log(user);
     return this.http.post(this.loginUrl, user, httpOptions)
       .pipe(
-        // tslint:disable-next-line:no-shadowed-variable
-        tap((user: User) => console.log('User Logged in', user))
+        tap((loginUser: User) => console.log('User Logged in', user))
       );
+  }
+
+  setRegisterSuccessMessage(message) {
+    this.registerSuccessMessage = message;
   }
 }

@@ -4,6 +4,9 @@
         Register To Play Card Game
   </div>
   <div class="card-body">
+        <div *ngIf="registerErorMessage" class="alert alert-danger" role="alert">
+            <strong>Oh snap!</strong> {{registerErorMessage}}
+        </div>
     <form [formGroup]="registerForm">
       <div class="form-group row" >
         <label for="firstName" class="col-sm-4 col-form-label">First Name </label>

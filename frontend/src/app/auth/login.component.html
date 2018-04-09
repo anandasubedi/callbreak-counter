@@ -4,8 +4,11 @@
             Login To Play Card Game
       </div>
       <div class="card-body">
-        <div *ngIf="loginFailure" class="alert alert-danger" role="alert">
-            <strong>Oh snap!</strong> Username and Password do not match.
+        <div *ngIf="registerSuccessMessage" class="alert alert-success" role="alert">
+            <strong>Yay!</strong> {{registerSuccessMessage}}
+        </div>
+        <div *ngIf="loginErrorMessage" class="alert alert-danger" role="alert">
+            <strong>Oh snap!</strong> {{loginErrorMessage}}
         </div>
         <form [formGroup]="loginForm">
           <div class="form-group row" >

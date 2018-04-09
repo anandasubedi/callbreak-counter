@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { AuthService } from './auth.service';
+import { Component, OnInit, OnDestroy } from '@angular/core';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { RegisterService } from './register.service';
 import { Router } from '@angular/router';
@@ -8,26 +9,31 @@ import { Router } from '@angular/router';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.css']
 })
-export class LoginComponent implements OnInit {
+export class LoginComponent implements OnInit, OnDestroy {
 
   loginForm: FormGroup;
   loginFailure: boolean = null;
+  registerSuccessMessage: String = null;
+  loginErrorMessage: String = null;
 
-  constructor(private registerService: RegisterService, private router: Router) {
-
+  constructor(
+     private router: Router,
+     private authService: AuthService) {
   }
 
   onSubmit() {
     if (this.loginForm.valid) {
       console.log(this.password);
-      this.registerService.login(
+      this.authService.login(
         { username: this.username.value, password: this.password.value })
-        .subscribe(user => {
-          if (user) {
+        .subscribe(response => {
+          if (response.auth) {
+            this.authService.setToken(response.token);
             this.goToHomePage();
-          } else {
-            this.loginFailure = true;
           }
+        },
+        error => {
+          this.loginErrorMessage = error.error;
         });
 
     } else {
@@ -43,12 +49,17 @@ export class LoginComponent implements OnInit {
       username: new FormControl('', Validators.required),
       password: new FormControl('', Validators.required)
     });
+
+    this.registerSuccessMessage = this.authService.registerSuccessMessage;
   }
 
   goToHomePage(): any {
     this.router.navigate(['/']);
   }
 
+  ngOnDestroy() {
+    this.authService.registerSuccessMessage = null;
+  }
   get username() { return this.loginForm.get('username'); }
   get password() { return this.loginForm.get('password'); }
 
