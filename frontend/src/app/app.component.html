@@ -1,16 +1,33 @@
-<nav class="navbar fixed-top navbar-dark bg-primary navbar-expand-lg">
+<nav class="navbar fixed-top navbar-dark bg-primary ">
   <div class="container">
-    <a class="nav-link" routerLink="/"><span class="navbar-brand mb-0 h1">Call Break</span></a>
+    <a class="nav-link" routerLink="/">
+      <span class="navbar-brand mb-0 h1">Call Break</span>
+    </a>
     <ul class="nav navbar-nav ml-auto">
-        <li *ngIf="isLoggedIn()" class="nav-item">
-            <a class="nav-link" routerLink="/login">Login</a>
-        </li>
-        <li *ngIf="isLoggedIn()" class="nav-item">
-            <a class="nav-link" routerLink="/register">Register</a>
-        </li>
-        <li *ngIf="!isLoggedIn()" class="nav-item">
-            <a class="nav-link" (click)="logout()">logout</a>
-        </li>
+      <li *ngIf="!isLoggedIn()" class="nav-item">
+        <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+      <li *ngIf="!isLoggedIn()" class="nav-item">
+        <a class="nav-link" routerLink="/register">Register</a>
+      </li>
+      <!-- <li *ngIf="isLoggedIn()" ngbDropdown class="nav-item dropdown" >
+            <a id="dropdownBasic2"  ngbDropdownToggle class="btn btn-outline-primary" href="#" >
+             anandasubedi
+            </a>
+            <div class="dropdown-menu" ngbDropdownMenu aria-labelledby="userDropDown">
+              <a class="dropdown-item" (click)="logout()">logout</a>
+              <a class="dropdown-item" href="#">Profile</a>
+            </div>
+          </li> -->
+      <li ngbDropdown class="nav-item d-inline-block">
+        <a ngbDropdownToggle aria-haspopup="true" class="nav-link" href="#">
+          anandasubedi
+        </a>
+        <div ngbDropdownMenu>
+            <a class="dropdown-item" (click)="logout()">logout</a>
+            <a class="dropdown-item" href="#">Profile</a>
+        </div>
+      </li>
     </ul>
   </div>
 </nav>
@@ -22,4 +39,3 @@
     <span class="text-muted">copyright 2018</span>
   </div>
 </footer>
-

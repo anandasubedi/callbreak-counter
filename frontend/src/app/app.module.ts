@@ -1,4 +1,4 @@
-import { AuthRequestOptions } from './auth/auth-interceptor';
+import {  AuthInterceptor } from './auth/auth-interceptor';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
 import { HttpClient, HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
@@ -26,23 +26,22 @@ import { RegisterService } from './auth/register.service';
     ReactiveFormsModule,
     NgbModule.forRoot(),
     routing,
-    HttpClientModule,
-    HttpModule
+    HttpClientModule
   ],
   providers: [
     forwardRef(() => Globals),
     RegisterService,
     AuthService,
     AuthGuard,
-    {
-      provide: RequestOptions,
-      useClass: AuthRequestOptions
-    }
     // {
-    //   provide: HTTP_INTERCEPTORS,
-    //   useClass: TokenInterceptor,
-    //   multi: true
+    //   provide: RequestOptions,
+    //   useClass: AuthRequestOptions
     // }
+    {
+      provide: HTTP_INTERCEPTORS,
+      useClass: AuthInterceptor,
+      multi: true
+    }
   ],
   bootstrap: [AppComponent]
 })

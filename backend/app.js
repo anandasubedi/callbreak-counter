@@ -4,38 +4,17 @@ var db = require('./db');
 var config = require('./config');
 var jwt = require('jsonwebtoken');
 var bcrypt = require('bcryptjs');
-
-// Add headers
-app.use(function (req, res, next) {
-
-  // Website you wish to allow to connect
-  res.setHeader('Access-Control-Allow-Origin', 'http://localhost:4200');
-
-  // Request methods you wish to allow
-  res.setHeader('Access-Control-Allow-Methods', 'GET, POST, OPTIONS, PUT, PATCH, DELETE');
-
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Allow-Headers', 'X-Requested-With,content-type, authorization');
- 
-  // Request headers you wish to allow
-  res.setHeader('Access-Control-Request-Headers', 'X-Requested-With,content-type, authorization');
-
-  // Set to true if you need the website to include cookies in the requests sent
-  // to the API (e.g. in case you use sessions)
-  res.setHeader('Access-Control-Allow-Credentials', true);
-
-  // Pass to next layer of middleware
-  next();
-});
+var cors = require('cors')
+app.use(cors());
 
 app.use((req, res, next) => {
   // check header or url parameters or post parameters for token
+  console.log(req.headers);
   if (req.originalUrl === '/auth/register' || req.originalUrl === '/auth/login') {
     next();
   }
   else{
-    console.log(req.headers);
-    var token = req.headers['Authorization'];
+    var token = req.headers['authorization'];
     if (token) {
       //Decode the token
       jwt.verify(token, config.secret, (err, decod) => {

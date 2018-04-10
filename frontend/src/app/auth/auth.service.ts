@@ -9,10 +9,6 @@ import { Globals } from '../globals';
 
 export const TOKEN_NAME = 'jwt_token';
 
-const httpOptions = {
-    headers: new HttpHeaders({ 'Content-Type': 'application/json' })
-};
-
 @Injectable()
 export class AuthService {
 
@@ -33,7 +29,6 @@ export class AuthService {
 
     getTokenExpirationDate(token: string): Date {
         const decoded = jwt_decode(token);
-        console.log('decoded', decoded);
         if (decoded.exp === undefined) { return null; }
 
         const date = new Date(0);
@@ -58,14 +53,14 @@ export class AuthService {
             email: user.email,
             username: user.username,
             password: user.password
-        }, httpOptions)
+        })
             .pipe(
                 tap((registerdUser: User) => console.log('User registered'))
             );
     }
 
     login(user: any): any {
-        return this.http.post(this.loginUrl, user, httpOptions)
+        return this.http.post(this.loginUrl, user)
             .pipe(
                 tap((loginUser: User) => console.log('User Logged in', user))
             );
@@ -74,8 +69,9 @@ export class AuthService {
     logout(): any {
         localStorage.removeItem(TOKEN_NAME);
     }
+
     setRegisterSuccessMessage(message) {
         this.registerSuccessMessage = message;
-      }
+    }
 
 }

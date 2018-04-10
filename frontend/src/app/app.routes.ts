@@ -1,14 +1,16 @@
+import { AuthGuard } from './auth/auth.guard';
 import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
 import {HomeComponent} from './home/home.component';
 import {LoginComponent} from './auth/login.component';
 import {RegisterComponent} from './auth/register.component';
 
-const appRoutes : Routes =
+const appRoutes: Routes =
   [
     {
       path: '',
-      component: HomeComponent
+      component: HomeComponent,
+      canActivate: [AuthGuard]
     },
     {
       path: 'login',
@@ -19,5 +21,5 @@ const appRoutes : Routes =
       component: RegisterComponent
     }
   ];
- 
+
 export const routing: ModuleWithProviders = RouterModule.forRoot(appRoutes);
