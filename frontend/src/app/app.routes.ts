@@ -1,3 +1,4 @@
+import { PreventLoggedInAccess } from './auth/prevent.loggedin.access';
 import { AuthGuard } from './auth/auth.guard';
 import {ModuleWithProviders} from '@angular/core';
 import {Routes, RouterModule} from '@angular/router';
@@ -14,11 +15,13 @@ const appRoutes: Routes =
     },
     {
       path: 'login',
-      component: LoginComponent
+      component: LoginComponent,
+      canActivate: [PreventLoggedInAccess]
     },
     {
       path: 'register',
-      component: RegisterComponent
+      component: RegisterComponent,
+      canActivate: [PreventLoggedInAccess]
     }
   ];
 

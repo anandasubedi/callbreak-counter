@@ -1,0 +1,29 @@
+<nav class="navbar fixed-top navbar-dark bg-primary ">
+  <div class="container">
+    <a class="nav-link" routerLink="/">
+      <span class="navbar-brand mb-0 h1">Call Break</span>
+    </a>
+    <ul class="nav mr-auto nav-list">
+      <li *ngIf="isLoggedIn()" class="nav-item">
+        <a class="nav-link" routerLink="/myGames">My Games</a>
+      </li>
+    </ul>
+    <ul class="nav ml-auto nav-list">
+      <li *ngIf="!isLoggedIn()" class="nav-item">
+        <a class="nav-link" routerLink="/login">Login</a>
+      </li>
+      <li *ngIf="!isLoggedIn()" class="nav-item">
+        <a class="nav-link" routerLink="/register">Register</a>
+      </li>
+      <li *ngIf="isLoggedIn()" ngbDropdown class="nav-item d-inline-block">
+        <a ngbDropdownToggle aria-haspopup="true" class="nav-link" >
+          anandasubedi
+        </a>
+        <div ngbDropdownMenu>
+            <a class="dropdown-item"  (click)="logout()">logout</a>
+            <a class="dropdown-item" >Profile</a>
+        </div>
+      </li>
+    </ul>
+  </div>
+</nav>

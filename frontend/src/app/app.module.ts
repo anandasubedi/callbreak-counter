@@ -1,3 +1,4 @@
+import { PreventLoggedInAccess } from './auth/prevent.loggedin.access';
 import {  AuthInterceptor } from './auth/auth-interceptor';
 import { AuthGuard } from './auth/auth.guard';
 import { AuthService } from './auth/auth.service';
@@ -15,10 +16,12 @@ import { HomeComponent } from './home/home.component';
 import { LoginComponent } from './auth/login.component';
 import { RegisterComponent } from './auth/register.component';
 import { RegisterService } from './auth/register.service';
+import { AppHeaderComponent } from './app-header/app-header.component';
+import { MyGamesComponent } from './my-games/my-games.component';
 
 @NgModule({
   declarations: [
-    AppComponent, HomeComponent, LoginComponent, RegisterComponent
+    AppComponent, HomeComponent, LoginComponent, RegisterComponent, AppHeaderComponent, MyGamesComponent
   ],
   imports: [
     BrowserModule,
@@ -33,6 +36,7 @@ import { RegisterService } from './auth/register.service';
     RegisterService,
     AuthService,
     AuthGuard,
+    PreventLoggedInAccess,
     // {
     //   provide: RequestOptions,
     //   useClass: AuthRequestOptions
